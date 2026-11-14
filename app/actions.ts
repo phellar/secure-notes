@@ -4,6 +4,7 @@ import { createClient } from "./lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+// Signs the current user out and redirects them to the login page.
 export const logOut = async () => {
   const supabase = await createClient();
 
@@ -12,6 +13,7 @@ export const logOut = async () => {
   redirect("/login");
 };
 
+// Validates and saves a new note for the authenticated user.
 export const addNote = async (formData: FormData) => {
   const title = String(formData.get("title") ?? "").trim();
   const body = String(formData.get("body") ?? "");
@@ -43,6 +45,7 @@ export const addNote = async (formData: FormData) => {
   redirect("/?success=created");
 };
 
+// Validates and updates an existing note for the authenticated user.
 export const updateNote = async (formData: FormData) => {
   const id = String(formData.get("id") ?? "").trim();
   const title = String(formData.get("title") ?? "").trim();
@@ -91,6 +94,7 @@ export const updateNote = async (formData: FormData) => {
   redirect("/?success=updated");
 };
 
+// Deletes an existing note for the authenticated user.
 export const deleteNote = async (formData: FormData) => {
   const id = String(formData.get("id") ?? "").trim();
 
